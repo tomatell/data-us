@@ -1,0 +1,365 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/people#",
+
+	"blocks":{
+		"person":{
+			"title": "Základné informácie",
+			"transCode": "schema.people.baseData",
+			"type": "object",
+			"properties":{
+				"registrationID": {
+					"title": "Registračné číslo",
+					"transCode": "schema.people.registrationID",
+					"type": "number"
+				},
+				"id": {
+					"title": "Identifikačné číslo",
+					"transCode": "schema.people.identifier",
+					"type": "string",
+					"required": true,
+					"unique": {
+						"schema": "uri://registries/people#views/fullperson",
+						"field": "baseData.id"
+					}
+				},
+				"name": {
+					"title": "Meno",
+					"transCode": "schema.people.name",
+					"type": "string",
+					"collate":true,
+					"required": true
+				},
+				"surName": {
+					"title": "Priezvisko",
+					"transCode": "schema.people.surName",
+					"type": "string",
+					"collate":true,
+					"required": true
+				},
+				"titleBefore": {
+					"title": "Titul pred",
+					"transCode": "schema.people.title.before",
+					"type": "string"
+				},
+				"titleAfter": {
+					"title": "Titul za",
+					"transCode": "schema.people.title.after",
+					"type": "string"
+				},
+				"birthDate": {
+					"extends":"uri://registries/commontypes#blocks/date",
+					"title": "Dátum narodenia",
+					"transCode": "schema.people.birthDate",
+					"required": true
+				},
+				"gender": {
+					"extends":"uri://registries/commonenums#blocks/gender",
+					"title": "Pohlavie",
+					"transCode": "schema.people.gender",
+					"required": true
+				},
+				"nationality": {
+					"$ref": "uri://registries/countries#country"
+				},
+				"stateofPerson":{
+					"extends":"uri://registries/commonenums#blocks/active",
+					"title": "Stav osoby",
+					"transCode": "schema.people.state.of.person"
+				}
+			}
+		},
+		"photoInfo": {
+			"title": "Fotografie",
+			"transCode": "schema.people.photoInfo",
+			"type": "object",
+			"properties": {
+				"photo": {
+					"title": "Fotografia",
+					"transCode": "schema.people.photo",
+					"type": "string",
+					"render": {
+						"component": "psui-uploadable-image",
+						"height": 330,
+						"width": 230
+					}
+				}
+			}
+		},
+		"contactInfo": {
+			"title": "Kontaktné údaje",
+			"transCode": "schema.people.contactInfo",
+			"type": "object",
+			"properties": {
+				"street": {
+					"title": "Ulica",
+					"transCode": "schema.people.street",
+					"type": "string"
+				},
+				"houseNumber": {
+					"title": "Číslo domu",
+					"transCode": "schema.people.houseNumber",
+					"type": "string"
+				},
+				"city": {
+					"$ref": "uri://registries/towns#town"
+				},
+				"zipCode": {
+					"title": "PSČ",
+					"transCode": "schema.people.zipCode",
+					"type": "string"
+				},
+				"country": {
+					"extends": "uri://registries/countries#country",
+					"transCode": "schema.people.country"
+				},
+				"phoneNumber": {
+					"title": "Telefón",
+					"transCode": "schema.people.phoneNumber",
+					"type": "string"
+				},
+				"mobileNumber": {
+					"title": "Mobil",
+					"transCode": "schema.people.mobileNumber",
+					"type": "string"
+				},
+				"email": {
+					"title": "E-mail",
+					"transCode": "schema.people.email",
+					"type": "string"
+				}
+			}
+		},
+		"bankInfo": {
+			"title": "Fakturačné údaje",
+			"transCode": "schema.org.bankInfo",
+			"type": "object",
+			"properties": {
+				"bankAccount": {
+					"title": "Číslo účtu",
+					"transCode": "schema.org.bankAccount",
+					"type": "string"
+				},
+				"bank": {
+					"title": "Názov banky",
+					"transCode": "schema.org.bank",
+					"type": "string"
+				},
+				"iban": {
+					"title": "IBAN",
+					"transCode": "schema.org.iban",
+					"type": "string"
+				},
+				"swift": {
+					"title": "SWIFT",
+					"transCode": "schema.org.swift",
+					"type": "string"
+				},
+				"street": {
+					"title": "Ulica",
+					"transCode": "schema.org.street",
+					"type": "string"
+				},
+				"houseNumber": {
+					"title": "Číslo domu",
+					"transCode": "schema.org.houseNumber",
+					"type": "string"
+				},
+				"city": {
+					"$ref": "uri://registries/towns#town"
+				},
+				"zipCode": {
+					"title": "PSČ",
+					"transCode": "schema.org.zipCode",
+					"type": "string"
+				},
+				"country": {
+					"extends": "uri://registries/countries#country",
+					"transCode": "schema.people.country"
+				}	
+			}
+		},
+		"otherInfo": {
+			"title": "Ostatné údaje",
+			"transCode": "schema.people.otherInfo",
+			"type": "object",
+			"properties": {
+				"idCardNumber": {
+					"title": "Číslo OP",
+					"transCode": "schema.people.idCardNumber",
+					"type": "string"
+				},
+				"passportNumber": {
+					"title": "Číslo pasu",
+					"transCode": "schema.people.passportNumber",
+					"type": "string"
+				},
+				"note": {
+					"title": "Poznámka",
+					"transCode": "schema.people.note",
+					"type": "string",
+					"render":{"component":"psui-textarea"}
+				}
+			}
+		}
+	},
+
+	"models":{
+		"person":{
+			"table": "people",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"fireEvents":{
+				"create": "event-person-created",
+				"update": "event-person-updated"
+			},
+			"properties":{
+				"baseData":{
+					"extends":"uri://registries/people#blocks/person"
+				},
+				"photoInfo":{
+					"$ref":"uri://registries/people#blocks/photoInfo"
+				},
+				"contactInfo":{
+					"$ref":"uri://registries/people#blocks/contactInfo"
+				},
+				"bankInfo":{
+					"$ref":"uri://registries/people#blocks/bankInfo"
+				}
+			}
+		},
+		"fullperson":{
+			"extends":"uri://registries/people#models/person",
+			"title":"Osoba",
+			"transCode":"schema.people.title",
+			"properties":{
+				
+			}
+		},
+		"personalProfile": {
+			"extends":"uri://registries/people#models/person",
+			"title":"Môj profil",
+			"transCode":"schema.people.personalProfile",
+			"properties":{
+				"photoInfo":{
+					"$ref":"uri://registries/people#blocks/photoInfo"
+				},
+				"contactInfo":{
+					"$ref":"uri://registries/people#blocks/contactInfo"
+				},
+				"otherInfo":{
+					"$ref":"uri://registries/people#blocks/otherInfo"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"fullperson":{
+			"new":{
+				"extends":"uri://registries/people#views/fullperson/view",
+				"saveBySchema": "uri://registries/people#views/fullperson/view"
+			},
+			"view":{
+				"extends":"uri://registries/people#models/fullperson",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "action-link",
+						"title": "Tlač hráčskej licencie",
+						"schema": "uri://registries/people#views/fullperson/view",
+						"template": "playerLicenseCard.html"
+					}
+				]
+			},
+			"search":{
+				"extends":"uri://registries/people#models/fullperson",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2Fpeople~23views~2Ffullperson/{{model.id}}"
+						}
+					}
+				],
+				"properties": {
+					"photoInfo":null
+				},
+				"listFields": [
+					{
+						"field": "baseData.registrationID",
+						"title": "Registračné číslo",
+						"transCode":"schema.people.registrationID"
+					},
+					{
+						"field": "baseData.surName",
+						"title": "Priezvisko",
+						"transCode":"schema.people.surName"
+					},
+					{
+						"field": "baseData.name",
+						"title": "Meno",
+						"transCode":"schema.people.name"
+					},
+					{
+						"field": "baseData.birthDate",
+						"title": "Dátum narodenia",
+						"transCode":"schema.people.birthDate"
+					},
+					{
+						"field": "contactInfo.city",
+						"title": "Mesto",
+						"transCode":"schema.people.city"
+					}
+				]
+			}
+		},
+		"personalProfile":{
+			"new":{
+				"extends":"uri://registries/people#models/personalProfile",
+				"title":"Môj profil"
+			},
+			"view":{
+				"extends":"uri://registries/people#models/personalProfile",
+				"title":"Môj profil"
+			},
+			"search":{
+				"extends":"uri://registries/people#models/personalProfile",
+				"title":"Môj profil",
+				"listFields": [
+					{
+						"field": "baseData.surName",
+						"title": "Priezvisko"
+					},
+					{
+						"field": "baseData.name",
+						"title": "Meno"
+					},
+					{
+						"field": "baseData.birthDate",
+						"title": "Dátum narodenia"
+					},
+					{
+						"field": "contactInfo.city",
+						"title": "Mesto"
+					}
+				]
+			}
+		}
+	}
+}

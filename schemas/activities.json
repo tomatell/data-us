@@ -1,0 +1,177 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/activities#",
+
+	"blocks":{
+		"baseData":{
+			"title": "Základné údaje",
+			"transCode":"schema.activities.baseData",
+			"type": "object",
+			"properties": {
+				"activityName": {
+					"title": "Názov aktivity",
+					"transCode":"schema.activities.name",
+					"type": "string",
+					"required": true
+				},
+				"typeOfActivity": {
+					"title": "Typ aktivity",
+					"transCode": "schema.activities.typeOfActivity",
+					"type": "string",
+					"enum": [
+						"mail",
+						"telefón",
+						"stretnutie",
+						"iné"
+					],
+					"render": {
+						"component": "psui-selectbox",
+						"searchable": false
+					}
+				},
+				"date": {
+					"extends":"uri://registries/commontypes#blocks/date",
+					"title": "Dátum",
+					"transCode": "schema.activities.date",
+					"required": true
+				},
+				"organization": {
+					"title": "Organizácia",
+					"transCode":"schema.activities.organization",
+					"type": "object",
+					"objectLink2": {
+						"schema":"uri://registries/organizations#views/company/view",
+						"fields":{
+							"name": "baseData.name"
+						}
+					}
+				},
+				"stateOfActivity": {
+					"title": "Stav aktivity",
+					"transCode": "schema.activities.stateOfActivity",
+					"type": "string",
+					"required": true,
+					"enum": [
+						"planované",
+						"v riešení",
+						"vybavené"
+					],
+					"render": {
+						"component": "psui-selectbox",
+						"searchable": false
+					}
+				},
+				"description": {
+					"title": "Popis",
+					"transCode": "schema.activities.description",
+					"type": "string",
+					"render":{"component":"psui-textarea"}
+				}
+			}
+		},
+		"listOfPeople": {
+			"title": "Zoznam ludi",
+			"transCode": "schema.activities.listOfPeople",
+			"type": "object",
+			"render": {
+				"width": "full"
+			},
+			"properties": {
+				"people": {
+					"title": "Osoby",
+					"transCode": "schema.activities.people",
+					"type": "array",
+					"items": {
+						"objectLink2": {
+							"schema": "uri://registries/people#views/fullperson/view",
+							"fields": {
+								"surName": "baseData.surName",
+								"firstName": "baseData.name",
+								"registrationID": "baseData.registrationID"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+
+	"models":{
+		"activities":{
+			"table" : "activities",
+			"title" : "Aktivita",
+			"transCode":"schema.activities.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties":{
+				"baseData":{
+					"$ref":"uri://registries/activities#blocks/baseData"
+				},
+				"listOfPeople":{
+					"$ref":"uri://registries/activities#blocks/listOfPeople"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"activities":{
+			"new":{
+				"$ref":"uri://registries/activities#models/activities"
+			},
+			"view":{
+				"$ref":"uri://registries/activities#models/activities"
+			},
+			"search":{
+				"extends":"uri://registries/activities#models/activities",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2Factivities~23views~2Factivities/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field":"baseData.activityName",
+						"title":"Aktivita",
+						"transCode":"schema.activities.name"
+					},
+					{
+						"field":"baseData.date",
+						"title":"Dátum",
+						"transCode":"schema.activities.date"
+					},
+					{
+						"field":"baseData.organization",
+						"title":"Organizácia",
+						"transCode":"schema.activities.organization"
+					},
+					{
+						"field":"baseData.stateOfActivity",
+						"title":"Stav",
+						"transCode":"schema.activities.stateOfActivity"
+					}
+				]
+			}
+		}
+
+	}
+}

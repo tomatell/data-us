@@ -1,0 +1,19 @@
+[
+	"security.json",
+	"securityMaster.json",
+	"people.json",
+	"group.json",
+	"groupMaster.json",
+	"organizations.json",
+	"userSecurity.json",
+	"statistics.json",
+	"countries.json",
+	"towns.json",
+	"commonTypes.json",
+	"commonEnums.json",
+	"activities.json",
+	"focus.json",
+	"organizationType.json",
+	"legalForm.json",
+	"businessRelationship.json"
+]

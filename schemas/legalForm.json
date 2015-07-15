@@ -1,0 +1,93 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/legalForm#",
+
+	"blocks":{
+		"baseData":{
+			"title": "Základné údaje",
+			"transCode":"schema.legalForm.baseData",
+			"type": "object",
+			"properties": {
+				"legalFormName": {
+					"title": "Názov",
+					"transCode":"schema.legalForm.name",
+					"type": "string",
+					"required": true
+				},
+				"display": {
+					"extends": "uri://registries/commonenums#blocks/boolean",
+					"title": "Zobraziť",
+					"transCode": "schema.legalForm.display",
+					"type": "string",
+					"required": true
+				}
+			}
+		}
+	},
+
+	"models":{
+		"legalForm":{
+			"table" : "legalForm",
+			"title" : "Právna forma",
+			"transCode":"schema.legalForm.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties":{
+				"baseData":{
+					"$ref":"uri://registries/legalForm#blocks/baseData"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"legalForm":{
+			"new":{
+				"$ref":"uri://registries/legalForm#models/legalForm"
+			},
+			"view":{
+				"$ref":"uri://registries/legalForm#models/legalForm"
+			},
+			"search":{
+				"extends":"uri://registries/legalForm#models/legalForm",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2FlegalForm~23views~2FlegalForm/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field":"baseData.legalFormName",
+						"title":"Názov",
+						"transCode":"schema.legalForm.name"
+					},
+					{
+						"field":"baseData.display",
+						"title":"Zobrazovať",
+						"transCode":"schema.legalForm.display"
+					}
+				]
+			}
+		}
+
+	}
+}

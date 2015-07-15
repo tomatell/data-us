@@ -1,0 +1,323 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/organizations#",
+	"blocks": {
+		"baseData": {
+			"title": "Základné údaje",
+			"transCode": "schema.org.baseData",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "Názov spoločnosti",
+					"transCode": "schema.org.name",
+					"type": "string",
+					"required": true
+				},
+				"startDate": {
+					"extends": "uri://registries/commontypes#blocks/date",
+					"title": "Dátum založenia",
+					"transCode": "schema.org.startDate"
+				},
+				"dateOfRegistration": {
+					"extends": "uri://registries/commontypes#blocks/date",
+					"title": "Dátum registrácie",
+					"transCode": "schema.org.dateOfRegistration"
+				},
+				"stateOfOrganization": {
+					"extends": "uri://registries/commonenums#blocks/active",
+					"title": "Stav klubu",
+					"transCode": "schema.org.stateOfClub",
+					"type": "string",
+					"required": true
+				},
+				"focus":{
+					"title": "Oblasť zamerania",
+					"transCode":"schema.org.focus",
+					"type": "object",
+					"objectLink2": {
+						"schema":"uri://registries/focus#views/focus/view",
+						"fields":{
+							"focusName": "baseData.focusName"
+						}
+					}
+				},
+				"type":{
+					"title": "Typ organizácie",
+					"transCode":"schema.org.type",
+					"type": "object",
+					"objectLink2": {
+						"schema":"uri://registries/organizationType#views/organizationType/view",
+						"fields":{
+							"typeName": "baseData.typeName"
+						}
+					}
+				},
+				"legalForm":{
+					"title": "Právna forma",
+					"transCode":"schema.org.legalForm",
+					"type": "object",
+					"objectLink2": {
+						"schema":"uri://registries/legalForm#views/legalForm/view",
+						"fields":{
+							"legalFormName": "baseData.legalFormName"
+						}
+					}
+				},
+				"businessRelationship":{
+					"title": "Obchodný vzťah",
+					"transCode":"schema.org.businessRelationship",
+					"type": "object",
+					"objectLink2": {
+						"schema":"uri://registries/businessRelationship#views/businessRelationship/view",
+						"fields":{
+							"relationshipName": "baseData.relationshipName"
+						}
+					}
+				}
+			}
+		},
+		"logoInfo": {
+			"title": "Logo",
+			"transCode": "schema.org.logoInfo",
+			"type": "object",
+			"properties": {
+				"photo": {
+					"title": "Logo",
+					"transCode": "schema.org.logo",
+					"type": "string",
+					"render": {
+						"component": "psui-uploadable-image",
+						"height": 230,
+						"width": 230
+					}
+				}
+			}
+		},
+		"contactInfo": {
+			"title": "Kontaktné údaje",
+			"transCode": "schema.people.contactInfo",
+			"type": "object",
+			"properties": {
+				"street": {
+					"title": "Ulica",
+					"transCode": "schema.people.street",
+					"type": "string"
+				},
+				"houseNumber": {
+					"title": "Číslo domu",
+					"transCode": "schema.people.houseNumber",
+					"type": "string"
+				},
+				"city": {
+					"$ref": "uri://registries/towns#town"
+				},
+				"zipCode": {
+					"title": "PSČ",
+					"transCode": "schema.people.zipCode",
+					"type": "string"
+				},
+				"country": {
+					"extends": "uri://registries/countries#country",
+					"transCode": "schema.people.country"
+				},
+				"phoneNumber": {
+					"title": "Telefón",
+					"transCode": "schema.people.phoneNumber",
+					"type": "string"
+				},
+				"mobileNumber": {
+					"title": "Mobil",
+					"transCode": "schema.people.mobileNumber",
+					"type": "string"
+				},
+				"email": {
+					"title": "E-mail",
+					"transCode": "schema.people.email",
+					"type": "string"
+				}
+			}
+		},
+		"bankInfo": {
+			"title": "Fakturačné údaje",
+			"transCode": "schema.org.bankInfo",
+			"type": "object",
+			"properties": {
+				"ico": {
+					"title": "IČO",
+					"transCode": "schema.org.ico",
+					"type": "string"
+				},
+				"dic": {
+					"title": "DIČ",
+					"transCode": "schema.org.dic",
+					"type": "string"
+				},
+				"icDPH": {
+					"title": "IČ DPH",
+					"transCode": "schema.org.icDPH",
+					"type": "string"
+				},
+				"bankAccount": {
+					"title": "Číslo účtu",
+					"transCode": "schema.org.bankAccount",
+					"type": "string"
+				},
+				"bank": {
+					"title": "Názov banky",
+					"transCode": "schema.org.bank",
+					"type": "string"
+				},
+				"iban": {
+					"title": "IBAN",
+					"transCode": "schema.org.iban",
+					"type": "string"
+				},
+				"swift": {
+					"title": "SWIFT",
+					"transCode": "schema.org.swift",
+					"type": "string"
+				},
+				"street": {
+					"title": "Ulica",
+					"transCode": "schema.org.street",
+					"type": "string"
+				},
+				"houseNumber": {
+					"title": "Číslo domu",
+					"transCode": "schema.org.houseNumber",
+					"type": "string"
+				},
+				"city": {
+					"$ref": "uri://registries/towns#town"
+				},
+				"zipCode": {
+					"title": "PSČ",
+					"transCode": "schema.org.zipCode",
+					"type": "string"
+				},
+				"country": {
+					"extends": "uri://registries/countries#country",
+					"transCode": "schema.people.country"
+				}	
+			}
+		},
+		"otherInfo": {
+			"title": "Ostatné údaje",
+			"transCode": "schema.people.otherInfo",
+			"type": "object",
+			"properties": {
+				"note": {
+					"title": "Poznámka",
+					"transCode": "schema.people.note",
+					"type": "string",
+					"render":{"component":"psui-textarea"}
+				}
+			}
+		},
+		"listOfPeople": {
+			"title": "Zoznam ludi",
+			"transCode": "schema.tasks.listOfPeople",
+			"type": "object",
+			"render": {
+				"width": "full"
+			},
+			"properties": {
+				"people": {
+					"title": "Osoby",
+					"transCode": "schema.org.people",
+					"type": "array",
+					"items": {
+						"objectLink2": {
+							"schema": "uri://registries/people#views/fullperson/view",
+							"fields": {
+								"surName": "baseData.surName",
+								"firstName": "baseData.name",
+								"registrationID": "baseData.registrationID"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"models": {
+		"company": {
+			"table": "organizations",
+			"title": "Organizácia",
+			"transCode": "schema.org.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties": {
+				"baseData": {
+					"$ref": "uri://registries/organizations#blocks/baseData"
+				},
+				"logoInfo": {
+					"$ref": "uri://registries/organizations#blocks/logoInfo"
+				},
+				"contactInfo": {
+					"$ref": "uri://registries/organizations#blocks/contactInfo"
+				},
+				"bankInfo": {
+					"$ref": "uri://registries/organizations#blocks/bankInfo"
+				},
+				"otherInfo": {
+					"$ref": "uri://registries/organizations#blocks/otherInfo"
+				},
+				"listOfPeople": {
+					"$ref": "uri://registries/organizations#blocks/listOfPeople"
+				}
+			}
+		}
+	},
+	"views": {
+		"company": {
+			"new": {
+				"extends": "uri://registries/organizations#models/company"
+			},
+			"view": {
+				"extends": "uri://registries/organizations#models/company"
+			},
+			"search": {
+				"extends": "uri://registries/organizations#models/company",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2Forganizations~23views~2Fcompany/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field": "baseData.name",
+						"title": "Názov organizácie"
+					},
+					{
+						"field": "baseData.dateOfRegistration",
+						"title": "Dátum registrácie"
+					},
+					{
+						"field": "baseData.stateOfOrganization",
+						"title": "Stav organizácie"
+					}
+				]
+			}
+		}
+	}
+}

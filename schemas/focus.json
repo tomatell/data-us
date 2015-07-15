@@ -1,0 +1,93 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/focus#",
+
+	"blocks":{
+		"baseData":{
+			"title": "Základné údaje",
+			"transCode":"schema.focus.baseData",
+			"type": "object",
+			"properties": {
+				"focusName": {
+					"title": "Názov",
+					"transCode":"schema.focus.name",
+					"type": "string",
+					"required": true
+				},
+				"display": {
+					"extends": "uri://registries/commonenums#blocks/boolean",
+					"title": "Zobraziť",
+					"transCode": "schema.focus.display",
+					"type": "string",
+					"required": true
+				}
+			}
+		}
+	},
+
+	"models":{
+		"focus":{
+			"table" : "focus",
+			"title" : "Oblasť zamerania",
+			"transCode":"schema.focus.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties":{
+				"baseData":{
+					"$ref":"uri://registries/focus#blocks/baseData"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"focus":{
+			"new":{
+				"$ref":"uri://registries/focus#models/focus"
+			},
+			"view":{
+				"$ref":"uri://registries/focus#models/focus"
+			},
+			"search":{
+				"extends":"uri://registries/focus#models/focus",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2Ffocus~23views~2Ffocus/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field":"baseData.focusName",
+						"title":"Aktivita",
+						"transCode":"schema.focus.name"
+					},
+					{
+						"field":"baseData.display",
+						"title":"Zobrazovať",
+						"transCode":"schema.focus.display"
+					}
+				]
+			}
+		}
+
+	}
+}

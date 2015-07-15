@@ -1,0 +1,93 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/businessRelationship#",
+
+	"blocks":{
+		"baseData":{
+			"title": "Základné údaje",
+			"transCode":"schema.businessRelationship.baseData",
+			"type": "object",
+			"properties": {
+				"relationshipName": {
+					"title": "Názov",
+					"transCode":"schema.businessRelationship.name",
+					"type": "string",
+					"required": true
+				},
+				"display": {
+					"extends": "uri://registries/commonenums#blocks/boolean",
+					"title": "Zobraziť",
+					"transCode": "schema.businessRelationship.display",
+					"type": "string",
+					"required": true
+				}
+			}
+		}
+	},
+
+	"models":{
+		"businessRelationship":{
+			"table" : "businessRelationship",
+			"title" : "Obchodný vzťah",
+			"transCode":"schema.businessRelationship.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties":{
+				"baseData":{
+					"$ref":"uri://registries/businessRelationship#blocks/baseData"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"businessRelationship":{
+			"new":{
+				"$ref":"uri://registries/businessRelationship#models/businessRelationship"
+			},
+			"view":{
+				"$ref":"uri://registries/businessRelationship#models/businessRelationship"
+			},
+			"search":{
+				"extends":"uri://registries/businessRelationship#models/businessRelationship",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2FbusinessRelationship~23views~2FbusinessRelationship/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field":"baseData.relationshipName",
+						"title":"Názov",
+						"transCode":"schema.businessRelationship.name"
+					},
+					{
+						"field":"baseData.display",
+						"title":"Zobrazovať",
+						"transCode":"schema.businessRelationship.display"
+					}
+				]
+			}
+		}
+
+	}
+}

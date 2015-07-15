@@ -1,0 +1,93 @@
+{
+	"$schema": "http://json-schema.org/schema#",
+	"id": "uri://registries/organizationType#",
+
+	"blocks":{
+		"baseData":{
+			"title": "Základné údaje",
+			"transCode":"schema.organizationType.baseData",
+			"type": "object",
+			"properties": {
+				"typeName": {
+					"title": "Názov",
+					"transCode":"schema.organizationType.name",
+					"type": "string",
+					"required": true
+				},
+				"display": {
+					"extends": "uri://registries/commonenums#blocks/boolean",
+					"title": "Zobraziť",
+					"transCode": "schema.organizationType.display",
+					"type": "string",
+					"required": true
+				}
+			}
+		}
+	},
+
+	"models":{
+		"organizationType":{
+			"table" : "organizationType",
+			"title" : "Typ organizácie",
+			"transCode":"schema.organizationType.title",
+			"security": {
+				"create": {
+					"static": [
+						"Registry - write"
+					]
+				},
+				"read": {
+					"static": [
+						"Registry - read"
+					]
+				},
+				"modify": {
+					"static": [
+						"Registry - write"
+					]
+				}
+			},
+			"properties":{
+				"baseData":{
+					"$ref":"uri://registries/organizationType#blocks/baseData"
+				}
+			}
+		}
+	},
+
+	"views":{
+		"organizationType":{
+			"new":{
+				"$ref":"uri://registries/organizationType#models/organizationType"
+			},
+			"view":{
+				"$ref":"uri://registries/organizationType#models/organizationType"
+			},
+			"search":{
+				"extends":"uri://registries/organizationType#models/organizationType",
+				"clientActions": [
+					{
+						"__DIRECTIVE__": "schema-redirect-link",
+						"title": "Zobraziť",
+						"params": {
+							"path": "/registry/view/uri~3A~2F~2Fregistries~2ForganizationType~23views~2ForganizationType/{{model.id}}"
+						}
+					}
+				],
+				"listFields": [
+					{
+						"field":"baseData.typeName",
+						"title":"Názov",
+						"transCode":"schema.organizationType.name"
+					},
+					{
+						"field":"baseData.display",
+						"title":"Zobrazovať",
+						"transCode":"schema.organizationType.display"
+					}
+				]
+			}
+		}
+
+	}
+}
