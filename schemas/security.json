@@ -17,7 +17,6 @@
 				"default": true
 			},
 
-
 			"Registry People": {
 				"title": "Zobrazenie registru Osoby",
 				"type": "boolean",
@@ -38,49 +37,6 @@
 				"type": "boolean",
 				"default": true
 			},
-
-
-			"RefereeReport - read - KM": {
-				"title": "Zobrazenie dát Zapisu rozhodcu",
-				"type": "boolean",
-				"default": true
-			},
-			"RefereeReport - write - KM": {
-				"title": "Modifikácia dát Zapisu rozhodcu",
-				"type": "boolean",
-				"default": true
-			},
-			"Club - read - KM": {
-				"title": "Zobrazenie dát klubu",
-				"type": "boolean",
-				"default": true
-			},
-			"Club - write - KM": {
-				"title": "Modifikácia dát klubu",
-				"type": "boolean",
-				"default": true
-			},
-			"Person - read - KM": {
-				"title": "Zobrazenie dát osob",
-				"type": "boolean",
-				"default": true
-			},
-			"Person - write - KM": {
-				"title": "Modifikácia dát osob",
-				"type": "boolean",
-				"default": true
-			},
-			"Requisitions - read - KM": {
-				"title": "Zobrazenie dát žiadosti",
-				"type": "boolean",
-				"default": true
-			},
-			"Requisitions - write - KM": {
-				"title": "Modifikácia dát žiadosti",
-				"type": "boolean",
-				"default": true
-			},
-
 
 			"Registry - read": {
 				"title": "Zobrazenie dát registrov",
@@ -139,19 +95,13 @@
 			"groups": {
 				"type": "array",
 				"items": {
-					"type": "object",
-					"properties": {
-						"id": "string"
-					}
+					"id": "string"
 				}
 			},
 			"profiles": {
 				"type": "array",
 				"items": {
-					"type": "object",
-					"properties": {
-						"id": "string"
-					}
+					"id": "string"
 				}
 			}
 		}
@@ -206,36 +156,24 @@
 					"groups": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"id": "string"
-							}
+							"id": "string"
 						}
 					},
 					"forcedCriteria": {
 						"type": "array",
 						"items": {
-							"type": "object",
-							"properties": {
-								"applySchema": "String",
-								"criteria": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"f": "string",
-											"op": "string",
-											"v": "string",
-											"obj":{
-												"type":"object",
-												"properties":{
-													"refData": {
-														"type":"object",
-														"properties":{
-															"name":"string"
-														}
-													}
-												}
+							"applySchema": "string",
+							"criteria": {
+								"type": "array",
+								"items": {
+									"f": "string",
+									"op": "string",
+									"v": "string",
+									"obj":{
+										"refData": {
+											"type":"object",
+											"properties":{
+												"name":"string"
 											}
 										}
 									}

@@ -215,7 +215,7 @@
 			}
 		},
 		"listOfPeople": {
-			"title": "Zoznam ludi",
+			"title": "Zoznam členov",
 			"transCode": "schema.tasks.listOfPeople",
 			"type": "object",
 			"render": {
@@ -227,13 +227,20 @@
 					"transCode": "schema.org.people",
 					"type": "array",
 					"items": {
-						"objectLink2": {
-							"schema": "uri://registries/people#views/fullperson/view",
-							"fields": {
-								"surName": "baseData.surName",
-								"firstName": "baseData.name",
-								"registrationID": "baseData.registrationID"
-							}
+						"people": {
+							"title": "Osoby",
+							"transCode": "schema.org.people",
+							"render": {
+								"width": "wide"
+							},
+							"objectLink2": {
+								"schema": "uri://registries/people#views/fullperson/view",
+								"fields": {
+									"surName": "baseData.surName",
+									"firstName": "baseData.name"
+								}
+							},
+							"required": true
 						}
 					}
 				}
